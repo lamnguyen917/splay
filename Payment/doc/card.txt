@@ -1,0 +1,33 @@
+2. VTC: 10k
+Mã: 392893806805 
+Serial: ID0330743857
+
+
+http://210.211.99.144:8087/gapi/v1/charge
+TT Parameters Type
+1 pinCard String
+2 serial String
+3 target String
+4 game String
+5 contentProvider String
+6 operation String
+
+Output: 
+
+TT Parameters
+ 
+http://210.211.99.144:8087/gapi/v1/charge
+
+1 transId
+2 status
+3 amount
+4 statusMsg
+5 respTime 
+
+String Card Type: 
+- MOBAY:MCCard 
+- Mobi: MobiCard 
+- Vina: VinaCard
+- VTC: VtcCard
+- Viettel: ViettelCard
+- Gate: FptCard 
