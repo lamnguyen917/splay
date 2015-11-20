@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="myAds">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/myAds.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
