@@ -105,14 +105,16 @@ public class CardActivity extends Activity {
             public void SunnetEventListener(Result result) {
                 Log.d(TAG, "on request done!!!!!!!!!!!!!!");
                 if (result.status == 0){
-                    Log.d(TAG, "on request sucess!!!!!!!!!!!!!!");
-                    UnityPlayer.UnitySendMessage(UnityController.getInstance().getObjectName(), "OnCardSuccess", String.valueOf(result.amount));
                     ShowAlert(result.statusMsg, getString(getResources().getIdentifier("payment_card_message", "string", getPackageName())));
+                    Log.d(TAG, "SPLAY REQUEST SUCCESS    ");
+                    UnityPlayer.UnitySendMessage(UnityController.getInstance().getObjectName(), "OnCardSuccess", String.valueOf(result.amount));
                 } else {
-                    Log.d(TAG, "on request error!!!!!!!!!!!!!!" + UnityController.getInstance().getObjectName());
+                    ShowAlert(getString(getResources().getIdentifier("payment_alert_error", "string", getPackageName())) + " " + result.status + ":", result.statusMsg);
+                    Log.d(TAG, "_____SPLAY PAYMENT ERROR   " + UnityController.getInstance().getObjectName());
+//                    result.amount = 10000000;
+//                    UnityPlayer.UnitySendMessage(UnityController.getInstance().getObjectName(), "OnCardSuccess", String.valueOf(result.amount));
                     UnityPlayer.UnitySendMessage(UnityController.getInstance().getObjectName(), "OnCardError", result.statusMsg);
                     Log.d(TAG, "on request error!!!!!!!!!!!!!!" + UnityController.getInstance().getObjectName());
-                    ShowAlert(getString(getResources().getIdentifier("payment_alert_error", "string", getPackageName())) + " " + result.status + ":", result.statusMsg);
 
                 }
             }

@@ -80,7 +80,7 @@ public class CardActivity extends Activity {
     }
 
     public void closeAll(){
-        Intent intent = new Intent(getApplicationContext(), UnityController.getActivity().getClass());
+        Intent intent = new Intent(getApplicationContext(), GuiActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
@@ -106,17 +106,22 @@ public class CardActivity extends Activity {
                 Log.d(TAG, "on request done!!!!!!!!!!!!!!");
                 if (result.status == 0){
                     Log.d(TAG, "on request sucess!!!!!!!!!!!!!!");
-                    UnityPlayer.UnitySendMessage(UnityController.getInstance().getObjectName(), "OnCardSuccess", String.valueOf(result.amount));
+                    OnCardSuccess(result);
                     ShowAlert(result.statusMsg, getString(getResources().getIdentifier("payment_card_message", "string", getPackageName())));
                 } else {
-                    Log.d(TAG, "on request error!!!!!!!!!!!!!!" + UnityController.getInstance().getObjectName());
-                    UnityPlayer.UnitySendMessage(UnityController.getInstance().getObjectName(), "OnCardError", result.statusMsg);
-                    Log.d(TAG, "on request error!!!!!!!!!!!!!!" + UnityController.getInstance().getObjectName());
+                    OnCardError(result);
                     ShowAlert(getString(getResources().getIdentifier("payment_alert_error", "string", getPackageName())) + " " + result.status + ":", result.statusMsg);
-
                 }
             }
         });
         sunnetRESTfulRecharge.getRequest();
+    }
+
+    public void OnCardSuccess(Result result){
+        Log.i(TAG, "Success " + result.toString());
+    }
+
+    public  void OnCardError(Result result){
+        Log.i(TAG, "ERROR:  " + result.toString());
     }
 }

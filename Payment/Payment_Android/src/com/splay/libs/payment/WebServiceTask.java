@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class WebServiceTask extends AsyncTask<String, Integer, String> {
@@ -60,7 +61,6 @@ public class WebServiceTask extends AsyncTask<String, Integer, String> {
         if (mContext != null) {
             pDlg = new ProgressDialog(mContext);
             pDlg.setMessage(processMessage);
-//        pDlg.setProgressDrawable(mContext.getWallpaper());
             pDlg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             pDlg.setCancelable(false);
             pDlg.show();
@@ -153,5 +153,15 @@ public class WebServiceTask extends AsyncTask<String, Integer, String> {
         }
         // Return full string
         return total.toString();
+    }
+
+    public String printParams() {
+        String p = "";
+        Iterator<NameValuePair> iterator = params.iterator();
+        while (iterator.hasNext()) {
+            NameValuePair pair = iterator.next();
+            p += pair.getName() + " : " + pair.getValue() + " ||||| ";
+        }
+        return p;
     }
 }

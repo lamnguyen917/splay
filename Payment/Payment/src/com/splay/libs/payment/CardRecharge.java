@@ -2,6 +2,7 @@ package com.splay.libs.payment;
 
 import android.content.Context;
 import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,18 +27,9 @@ public class CardRecharge {
     private String mGame = "";
     private Context mContext;
 
-    //    public String transId;
-//    public int status;
-//    public String statusMsg;
-//    public int amount;
-//    public int respTime;
     Result result = new Result();
 
     private List<ISunnetEventListener> listeners = new ArrayList<ISunnetEventListener>();
-
-    public CardRecharge() {
-        super();
-    }
 
     public CardRecharge(Context context, CardTypes type, String pin, String serial, String target, String game){
         mContext = context;
@@ -47,15 +39,6 @@ public class CardRecharge {
         mTarget = target;
         mGame = game;
     }
-
-//    public CardRecharge(Context context, String type, String pin, String serial, String target, String game){
-//        mContext = context;
-//        mCardType = getCardType(type);
-//        mPinCard = pin;
-//        mSerial = serial;
-//        mTarget = target;
-//        mGame = game;
-//    }
 
     public void addEventListener(ISunnetEventListener eventListener){
         listeners.add(eventListener);
@@ -108,10 +91,11 @@ public class CardRecharge {
     public void getRequest(){
         WebServiceTask wst = new WebServiceTask(mContext, WebServiceTask.POST_TASK, "Send Request...");
         wst.addNameValuePair("operation", getCardTypeStr());
-        wst.addNameValuePair("pinCard", getCardTypeStr());
-        wst.addNameValuePair("serial", getCardTypeStr());
-        wst.addNameValuePair("target", getCardTypeStr());
-        wst.addNameValuePair("game", getCardTypeStr());
+        wst.addNameValuePair("pinCard", mPinCard);
+        wst.addNameValuePair("serial", mSerial);
+        wst.addNameValuePair("target", mTarget);
+        wst.addNameValuePair("game", mGame);
+
         wst.addResponseListener(new IAsyncResponse() {
             @Override
             public void onProcessFinished(String resultString) {
