@@ -52,24 +52,6 @@ public class CardRecharge {
         return mCardType;
     }
 
-//    public CardTypes getCardType(String type){
-//        switch (type){
-//            case CARD_GATE:
-//                return CardTypes.GATE;
-//            case CARD_MOBAY:
-//                return CardTypes.MOBAY;
-//            case CARD_MOBI:
-//                return CardTypes.MOBI;
-//            case CARD_VIETTEL:
-//                return CardTypes.VIETTEL;
-//            case CARD_VINA:
-//                return CardTypes.VINA;
-//            case CARD_VTC:
-//                return CardTypes.VTC;
-//        }
-//        return null;
-//    }
-
     public String getCardType(CardTypes type){
         switch (type){
             case GATE:
