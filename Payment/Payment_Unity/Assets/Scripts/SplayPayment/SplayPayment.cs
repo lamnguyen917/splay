@@ -36,8 +36,8 @@ public class SplayPayment : MonoBehaviour
                 {
                     paymentObject = pluginClass.CallStatic<AndroidJavaObject>("getInstance");
                     paymentObject.Call("setActivity", playerContext);
-                    paymentObject.Call("setObjectName", gameObject.name);
-                    paymentObject.Call("setPackageName", GAMENAME);
+                    paymentObject.Call("setObjectName", name);
+                    paymentObject.Call("setGameName", GAMENAME);
                 }
             }
         }
@@ -61,8 +61,8 @@ public class SplayPayment : MonoBehaviour
     {
         int coinAmmount = int.Parse(ammount);
 
-        ShowToastMessage("Bạn đã nạp thành công " + ammount + " " + money);
-        paymentObject.Call("setMessage", "Bạn đã nạp thành công " + ammount + " " + money);
+        ShowToastMessage("Bạn đã nạp thành công " + coinAmmount + " " + money);
+        //paymentObject.Call("ShowAlert", "Bạn đã nạp thành công " + ammount + " " + money);
         UserProfile.coin += coinAmmount;
     }
 
