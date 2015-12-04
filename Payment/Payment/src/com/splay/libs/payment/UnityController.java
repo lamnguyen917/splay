@@ -1,6 +1,7 @@
 package com.splay.libs.payment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.widget.Toast;
 
@@ -10,7 +11,7 @@ import android.widget.Toast;
 public class UnityController {
     private Activity activity;
     private static UnityController instance;
-    private static String packageName = getPackageName();
+    private static String gameName = "SPLAY";
     private String objectName = "SplayPaymentObject";
 
 //    public static UnityController() {
@@ -39,12 +40,12 @@ public class UnityController {
         this.objectName = objectName;
     };
 
-    public static void setPackageName(String name){
-        packageName = name;
+    public void setGameName(String name){
+        this.gameName = name;
     }
 
-    public static String getPackageName(){
-        return packageName;
+    public static String getGameName(){
+        return gameName;
     }
 
     public void showGui() {
@@ -54,4 +55,8 @@ public class UnityController {
     public void showMessage(String message) {
         Toast.makeText(this.activity.getBaseContext(), message, Toast.LENGTH_SHORT).show();
     }
+
+//    public void ShowAlert(String title, String content){
+//
+//    }
 }

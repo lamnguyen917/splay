@@ -10,8 +10,10 @@ public class SplayPayment : MonoBehaviour
 
     //private GameObject obj;
 
-    public int smsAmmount;
-    public string money;
+    public int smsAmmount = 15000;
+    public string money = "dollar";
+
+    public string GAMENAME = "MORDENWORLDWAR";
 
     void Start()
     {
@@ -35,6 +37,7 @@ public class SplayPayment : MonoBehaviour
                     paymentObject = pluginClass.CallStatic<AndroidJavaObject>("getInstance");
                     paymentObject.Call("setActivity", playerContext);
                     paymentObject.Call("setObjectName", gameObject.name);
+                    paymentObject.Call("setPackageName", GAMENAME);
                 }
             }
         }
@@ -56,8 +59,11 @@ public class SplayPayment : MonoBehaviour
 
     public void OnCardSuccess(string ammount)
     {
-        Debug.Log(ammount);
+        int coinAmmount = int.Parse(ammount);
+
         ShowToastMessage("Bạn đã nạp thành công " + ammount + " " + money);
+        paymentObject.Call("setMessage", "Bạn đã nạp thành công " + ammount + " " + money);
+        UserProfile.coin += coinAmmount;
     }
 
     public void OnCardError(string error)
@@ -69,7 +75,7 @@ public class SplayPayment : MonoBehaviour
     public void OnSMSSuccess(string message)
     {
         ShowToastMessage("Bạn đã nạp thành công " + smsAmmount + " " + money);
-        //MotoState.dola += smsAmmount;
+        UserProfile.coin += smsAmmount;
     }
 
     public void OnSMSFailed(string error)

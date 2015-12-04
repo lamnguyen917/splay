@@ -103,11 +103,9 @@ public class SmsActivity extends Activity {
                 switch (getResultCode()) {
                     case Activity.RESULT_OK:
                         Log.d(TAG, "Sent!!!!!!!!!");
-//                        UnityPlayer.UnitySendMessage("SunnetPayment", "OnSMSSuccess", "Giao d?ch thành công");
                         UnityPlayer.UnitySendMessage(UnityController.getInstance().getObjectName(), "OnSMSSuccess", "");
                         break;
                     case Activity.RESULT_CANCELED:
-//                        UnityPlayer.UnitySendMessage("SunnetPayment", "OnSMSFailed", "Giao d?ch ?ã b? h?y b?");
                         UnityPlayer.UnitySendMessage(UnityController.getInstance().getObjectName(), "OnSMSFailed", "");
                         Log.d(TAG, "RESULT_CANCELED");
                         break;

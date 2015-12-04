@@ -20,9 +20,12 @@ public class CardActivity extends Activity {
     private String title;
     private CardTypes type;
 
+    private CardActivity cardActivityInstance;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        cardActivityInstance = this;
         mContext = CardActivity.this;
         int layout_id = getResources().getIdentifier("payment_card_landscape", "layout", getPackageName());
         setContentView(layout_id);
@@ -62,7 +65,7 @@ public class CardActivity extends Activity {
                 int edt_card_seri = getResources().getIdentifier("edt_card_seri", "id", getPackageName());
                 EditText edtSeri = (EditText)findViewById(edt_card_seri);
                 String seri = edtSeri.getText().toString();
-                CallRESTfulRequest(type, code, seri, "mobay.vn", UnityController.getPackageName());
+                CallRESTfulRequest(type, code, seri, "mobay.vn", UnityController.getGameName());
             }
         });
 
@@ -98,16 +101,19 @@ public class CardActivity extends Activity {
     }
 
     public void CallRESTfulRequest(CardTypes type, String pin, String serial, String target, String game) {
-        Log.d(TAG, "CallRESTfulRequest" + type + pin + serial + target + game);
+        Log.d(TAG, "CallRESTfulRequest: __type: " + type + "__pin: " + pin + "__serial: " + serial + "__target: " + target + "__game: " + game);
         final CardRecharge sunnetRESTfulRecharge = new CardRecharge(mContext, type, pin, serial, target, game);
         sunnetRESTfulRecharge.addEventListener(new ISunnetEventListener() {
             @Override
             public void SunnetEventListener(Result result) {
                 Log.d(TAG, "on request done!!!!!!!!!!!!!!");
                 if (result.status == 0){
-                    ShowAlert(result.statusMsg, getString(getResources().getIdentifier("payment_card_message", "string", getPackageName())));
+//                    UnityController.getInstance().setAlertTitle(result.statusMsg);
+//                    UnityController.getInstance().setCardActivity(cardActivityInstance);
+                    //ShowAlert(result.statusMsg, UnityController.getInstance().getMessage());
                     Log.d(TAG, "SPLAY REQUEST SUCCESS    ");
                     UnityPlayer.UnitySendMessage(UnityController.getInstance().getObjectName(), "OnCardSuccess", String.valueOf(result.amount));
+                    closeAll();
                 } else {
                     ShowAlert(getString(getResources().getIdentifier("payment_alert_error", "string", getPackageName())) + " " + result.status + ":", result.statusMsg);
                     Log.d(TAG, "_____SPLAY PAYMENT ERROR   " + UnityController.getInstance().getObjectName());
@@ -115,7 +121,6 @@ public class CardActivity extends Activity {
 //                    UnityPlayer.UnitySendMessage(UnityController.getInstance().getObjectName(), "OnCardSuccess", String.valueOf(result.amount));
                     UnityPlayer.UnitySendMessage(UnityController.getInstance().getObjectName(), "OnCardError", result.statusMsg);
                     Log.d(TAG, "on request error!!!!!!!!!!!!!!" + UnityController.getInstance().getObjectName());
-
                 }
             }
         });
